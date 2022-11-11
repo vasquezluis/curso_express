@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 
 const app = express();
 
@@ -69,6 +70,42 @@ app.get("/users/:username/photo", (req, res) => {
 
 app.get("/name/:name/age/:age", (req, res) => {
   res.send(`El usuario ${req.params.name} tiene ${req.params.age}`);
+});
+
+// method all
+app.all("/info", (req, res) => {
+  res.send("server info");
+});
+
+// middleware -> funcion que se ejecuta antes de una ruta
+
+app.use((req, res, next) => {
+  console.log(`Route: ${req.url} Method: ${req.method}`);
+  // next es para seguir con el flujo del programa
+  next();
+});
+
+app.use((req, res, next) => {
+  if (req.query.login === "luivasquez95@gmail.com") {
+    next();
+  } else {
+    res.send("No autorizado");
+  }
+});
+
+app.get("/dashboard", (req, res) => {
+  res.send("Dashboard Page");
+});
+
+app.get("/profile", (req, res) => {
+  res.send("Profile page");
+});
+
+// middleware con morgan
+app.use(morgan('dev'));
+
+app.get("/profilemorgan", (req, res) => {
+  res.send("Profile page");
 });
 
 // comprobacion del estado de servidor
