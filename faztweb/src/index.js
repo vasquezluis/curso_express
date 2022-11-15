@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
+require("ejs");
 
 const app = express();
 
@@ -10,6 +11,10 @@ const userRouter = require("./routes/users");
 
 app.use(homeRouter);
 app.use(userRouter);
+
+// ejs
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 app.get("/", (req, res) => {
   res.send("hello world");
