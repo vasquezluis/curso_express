@@ -1,11 +1,12 @@
 const mysql = require("mysql2/promise");
+require('dotenv').config()
 
 async function connectDB() {
   const connection = await mysql.createConnection({
-    host: "us-east.connect.psdb.cloud",
-    user: "244n3b7hex1zesnl3yj8",
-    password: "pscale_pw_lLCeHtJ7cf8ZVX6hFBK8sU0REWE6WJzAXUhJ4i7EzxF",
-    database: "expressdb",
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
     ssl: {
       rejectUnauthorized: false
     }
