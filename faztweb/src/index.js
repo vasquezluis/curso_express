@@ -1,7 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
+const connectDB = require("./db");
 require("ejs");
+
+
+connectDB()
 
 const app = express();
 
@@ -15,10 +19,6 @@ app.use(userRouter);
 // ejs
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
 
 app.get("/miarchivo", (req, res) => {
   res.sendFile("./living.jpg", { root: __dirname });
