@@ -2,6 +2,10 @@ const { Router } = require("express");
 
 const router = Router();
 
+router.get('/users', (req, res) => {
+  res.render('users')
+})
+
 router.post("/user1", (req, res) => {
   console.log(req.body);
   res.send("Nuevo usuario creado");
